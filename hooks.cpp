@@ -40,13 +40,13 @@ void hooks::Destroy() noexcept {
 }
 
 long __stdcall hooks::EndScence(IDirect3DDevice9* device) noexcept {
-	static const auto returnAddres = _ReturnAddress();
+	//static const auto returnAddres = _ReturnAddress();
 
 	const auto result = EndScenceOriginal(device, device);
-
-	if (_ReturnAddress == returnAddres) {
+	
+	/*if (_ReturnAddress == returnAddres) {
 		return result;
-	}
+	}*/
 
 	if (!gui::setup) {
 		gui::SetupMenu(device);
@@ -55,6 +55,8 @@ long __stdcall hooks::EndScence(IDirect3DDevice9* device) noexcept {
 	if (gui::open) {
 		gui::Render();
 	}
+
+	return result;
 }
 HRESULT __stdcall hooks::Reset(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS* params) noexcept {
 	ImGui_ImplDX9_InvalidateDeviceObjects();
